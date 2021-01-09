@@ -8,9 +8,14 @@ export class OrderService {
         orders.filter((order) => {
             return order.orderType === "Book";
         }).forEach((order) => {
-            let bookDao = new BookDao();
+            let bookDao = this.getBookDoa();
             bookDao.insert(order);
         });
+    }
+
+    getBookDoa() {
+        let bookDao = new BookDao();
+        return bookDao;
     }
 
     get_orders() {
