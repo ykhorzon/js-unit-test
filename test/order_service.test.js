@@ -10,9 +10,6 @@ describe('sync book orders', function () {
     orderService.get_orders = jest.fn().mockReturnValue(orders);
   }
 
-  function bookDoaInsertShouldBeCalled(times) {
-    expect(orderService.getBookDoa().insert).toBeCalledTimes(times);
-  }
 
   it('should only sync book orders', () => {
     givenOrders([
@@ -25,6 +22,12 @@ describe('sync book orders', function () {
     });
 
     orderService.sync_book_orders();
-    bookDoaInsertShouldBeCalled(2);
+
+    expect(orderService.getBookDoa().insert.mock.calls[0][0]).toEqual({
+      orderType: 'Book'
+    });
+    expect(orderService.getBookDoa().insert.mock.calls[1][0]).toEqual({
+      orderType: 'Book'
+    });
   });
 });
