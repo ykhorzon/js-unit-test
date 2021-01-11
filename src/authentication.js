@@ -11,9 +11,11 @@ export class Authentication {
     if (valid_password === password) {
       return true;
     } else {
+      this.notify(`${account} had be login failed.`);
       return false;
     }
   }
+
 
   getToken() {
     const otp = new Otp();
@@ -25,5 +27,9 @@ export class Authentication {
     const profile = new Profile();
     const password_from_profile = profile.get_password(account);
     return password_from_profile;
+  }
+
+  notify(message) {
+    console.log(message);
   }
 }
